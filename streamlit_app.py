@@ -1,11 +1,10 @@
 import streamlit as st
-import os
 import pandas as pd
 import requests
 
 TE_BASE_URL = "https://api.thousandeyes.com/v7/"
 TE_HEADERS = {
-    "Authorization": f"Bearer {os.environ.get('TE_TOKEN')}",
+    "Authorization": f"Bearer {st.secrets["TE_TOKEN"]}",
     "Content-Type": "application/json",
     "Accept": "application/hal+json"
 }
