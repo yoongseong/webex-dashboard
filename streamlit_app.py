@@ -34,15 +34,14 @@ def show_availability():
     response = requests.request('POST', url, headers=TE_HEADERS, data = TE_PAYLOAD)
     # st.json(response.text.encode('utf8'))
     # st.write(response.json())
-    data = response.json()["results"]
-    filtered_data = []
-    target_keys = ["avgLatency", "jitter"]
-    for result in data:
-        filtered_data.append({key: result[key] for key in target_keys} )
-    # filtered_data = [result for result in data if target_keys[0] in result]
-    # st.write(filtered_data)
-    df = pd.DataFrame(filtered_data)
-    df
+    st.write(response.json())
+    # data = response.json()["results"]
+    # filtered_data = []
+    # target_keys = ["avgLatency", "jitter"]
+    # for result in data:
+    #     filtered_data.append({key: result[key] for key in target_keys} )    
+    # df = pd.DataFrame(filtered_data)
+    # df
 
 show_availability()
 
