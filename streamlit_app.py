@@ -26,6 +26,11 @@ TE_TEST_ID = "289949"
 TE_AGENT_ID = "9db4eabc-a86d-4fc9-b666-6ea6e8764144"
 TE_WINDOW = "1h"
 
+st.set_page_config(
+    page_title="NTT Com DD Dashboard",
+    layout="wide"
+)
+
 st.logo("gallery/logo.png")
 st.title(":desktop_computer: NTT Com DD Dashboard")
 
@@ -81,7 +86,7 @@ with st.container():
             filtered_data.append({key: result[key] for key in target_keys} )
         df = pd.DataFrame(filtered_data)
         st.line_chart(df, y_label="%")
-        
+
         st.subheader("Jitter")
         filtered_data = []
         target_keys = ["jitter"]
