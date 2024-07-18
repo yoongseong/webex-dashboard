@@ -50,41 +50,45 @@ def get_te_http_data():
 
 st.header("Webex Performance Chart")
 
-data = get_te_http_data()
+http_data = get_te_http_data()
+network_data = get_te_network_data()
 
-st.subheader("Response Time")
-filtered_data = []
-target_keys = ["responseTime"]
-for result in data:
-    filtered_data.append({key: result[key] for key in target_keys} )
-df = pd.DataFrame(filtered_data)
-st.line_chart(df, y_label="milliseconds")
+with st.container():
+    col1, col2 = st.columns(2)
 
-data = get_te_network_data()
+    with col1:
+        st.subheader("Response Time")
+        filtered_data = []
+        target_keys = ["responseTime"]
+        for result in http_data:
+            filtered_data.append({key: result[key] for key in target_keys} )
+        df = pd.DataFrame(filtered_data)
+        st.line_chart(df, y_label="milliseconds")
 
-st.subheader("Packet Loss")
-filtered_data = []
-target_keys = ["loss"]
-for result in data:
-    filtered_data.append({key: result[key] for key in target_keys} )
-df = pd.DataFrame(filtered_data)
-st.line_chart(df, y_label="%")
+        st.subheader("Average Latency")
+        filtered_data = []
+        target_keys = ["avgLatency"]
+        for result in network_data:
+            filtered_data.append({key: result[key] for key in target_keys} )
+        df = pd.DataFrame(filtered_data)
+        st.line_chart(df, y_label="milliseconds")
 
-st.subheader("Average Latency")
-filtered_data = []
-target_keys = ["avgLatency"]
-for result in data:
-    filtered_data.append({key: result[key] for key in target_keys} )
-df = pd.DataFrame(filtered_data)
-st.line_chart(df, y_label="milliseconds")
-
-st.subheader("Jitter")
-filtered_data = []
-target_keys = ["jitter"]
-for result in data:
-    filtered_data.append({key: result[key] for key in target_keys} )
-df = pd.DataFrame(filtered_data)
-st.line_chart(df, y_label="milliseconds")
+    with col2:
+        st.subheader("Packet Loss")
+        filtered_data = []
+        target_keys = ["loss"]
+        for result in network_data:
+            filtered_data.append({key: result[key] for key in target_keys} )
+        df = pd.DataFrame(filtered_data)
+        st.line_chart(df, y_label="%")
+        
+        st.subheader("Jitter")
+        filtered_data = []
+        target_keys = ["jitter"]
+        for result in network_data:
+            filtered_data.append({key: result[key] for key in target_keys} )
+        df = pd.DataFrame(filtered_data)
+        st.line_chart(df, y_label="milliseconds")
 
 
 
